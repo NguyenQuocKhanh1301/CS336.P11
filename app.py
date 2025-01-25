@@ -27,8 +27,8 @@ if pdf_file is not None and not st.session_state.get("pdf_processed", False):
     # Extract text from the uploaded PDF
     with st.spinner("Extracting text from PDF..."):
         st.session_state.pdf_text = extract_text_from_pdf(pdf_file)
-        st.session_state.db = FAISS.load_local("./faiss", creat_embedding(), allow_dangerous_deserialization=True)
-        # st.session_state.db = create_retriever_with_chunks(st.session_state.pdf_text)
+        # st.session_state.db = FAISS.load_local("./faiss", creat_embedding(), allow_dangerous_deserialization=True)
+        st.session_state.db = create_retriever_with_chunks(st.session_state.pdf_text)
         st.session_state.retriever = st.session_state.db.as_retriever()
         st.session_state.pdf_processed = True
         st.success("Vector database created successfully!")
